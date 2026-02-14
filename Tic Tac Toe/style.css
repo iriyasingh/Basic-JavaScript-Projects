@@ -1,0 +1,356 @@
+:root {
+    --bg1: navy;
+    --bg2: teal;
+    --card: darkslategray;
+    --accent: #00eaff;
+    --accent-2: #00fff7;
+    --light: lightblue;
+}
+
+/* reset & layout */
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background: linear-gradient(to right, var(--bg1), var(--bg2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: var(--light);
+}
+
+/* floating background container */
+#floating-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* page wrapper */
+.page {
+    position: relative;
+    z-index: 3;
+    /* above floating bg */
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* hidden helper */
+.hidden {
+    display: none
+}
+
+/* Home Card style (keeps original look) */
+.home-card {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 40px 50px;
+    border-radius: 18px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 234, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    backdrop-filter: blur(4px);
+    min-width: 420px;
+    text-align: center;
+}
+
+/* Glowing title */
+.glow-title {
+    font-size: 56px;
+    margin: 0;
+    color: white;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-shadow: 0 0 8px var(--accent), 0 0 18px var(--accent), 0 0 30px var(--accent-2);
+    animation: glowPulse 2s infinite alternate;
+}
+
+@keyframes glowPulse {
+    0% {
+        text-shadow: 0 0 8px var(--accent);
+    }
+
+    100% {
+        text-shadow: 0 0 20px var(--accent-2);
+    }
+}
+
+.start-btn,
+#home-page .start-btn {
+    padding: 16px 44px;
+    font-size: 18px;
+    border-radius: 40px;
+    border: 3px solid var(--accent);
+    background: transparent;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(0, 234, 255, 0.12);
+    transition: .18s;
+}
+
+.start-btn:hover {
+    transform: scale(1.03);
+    background: rgba(0, 234, 255, 0.06);
+}
+
+/* container (keeps original look) */
+.container {
+    background: var(--card);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px gray;
+    color: var(--light);
+    position: relative;
+    max-width: 760px;
+}
+
+/* original kept styles */
+h1 {
+    margin-bottom: 20px;
+    color: lightblue;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    width: 220px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+    color: white;
+    background: deepskyblue;
+}
+
+button:hover {
+    background: dodgerblue;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    margin-top: 12px;
+}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 10px;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background: lightblue;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: darkslategray;
+    cursor: pointer;
+    transition: transform .2s, background .2s, color .2s;
+}
+
+.cell:hover {
+    transform: scale(1.1);
+    background: deepskyblue;
+}
+
+.cell.taken {
+    cursor: not-allowed;
+}
+
+.cell.x {
+    color: black;
+}
+
+.cell.o {
+    color: darkblue;
+}
+
+.cell.hint {
+    outline: 4px solid rgba(255, 235, 59, 0.95);
+    outline-offset: 4px;
+}
+
+.cell.win {
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.08);
+    transform: scale(1.05);
+}
+
+/* msg area */
+#message {
+    font-size: 1.2em;
+    margin: 10px;
+    font-weight: bold;
+}
+
+/* scoreboard */
+table {
+    border-collapse: collapse;
+    font-size: 18px;
+}
+
+table,
+th,
+td {
+    border: 2px solid lightblue;
+    padding: 10px;
+    text-align: center;
+}
+
+.levels-table {
+    margin: 20px auto;
+}
+
+.level-btn {
+    width: 180px;
+    padding: 12px;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 10px;
+    background: deepskyblue;
+    color: darkslategray;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all .3s ease;
+}
+
+.level-btn:hover {
+    transform: scale(1.05);
+    background: dodgerblue;
+}
+
+.level-btn.active {
+    background: lightblue;
+    color: white;
+    box-shadow: 0 0 15px lightblue;
+    transform: scale(1.1);
+}
+
+.back-btn {
+    margin-top: 20px;
+    background: navy;
+    color: lightblue;
+}
+
+/* Celebration */
+#celebration-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 1
+    }
+
+    100% {
+        transform: translateY(400px) rotate(360deg);
+        opacity: 0
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg)
+    }
+
+    20% {
+        transform: translate(-5px, 3px) rotate(-5deg)
+    }
+
+    40% {
+        transform: translate(5px, -3px) rotate(5deg)
+    }
+
+    60% {
+        transform: translate(-5px, 3px) rotate(-5deg)
+    }
+
+    80% {
+        transform: translate(5px, -3px) rotate(5deg)
+    }
+}
+
+/* Floating X/O styling (slow up/down) */
+.xo-float {
+    position: absolute;
+    color: rgba(0, 255, 255, 0.12);
+    user-select: none;
+    pointer-events: none;
+    animation-name: floatUpDown;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    will-change: transform, opacity;
+    text-shadow: 0 0 6px rgba(0, 234, 255, 0.08);
+}
+
+@keyframes floatUpDown {
+    from {
+        transform: translateY(-8vh) rotate(0deg);
+        opacity: 0.85;
+    }
+
+    50% {
+        transform: translateY(6vh) rotate(6deg);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateY(-8vh) rotate(-4deg);
+        opacity: 0.75;
+    }
+}
+
+/* responsive */
+@media (max-width:600px) {
+    .glow-title {
+        font-size: 36px
+    }
+
+    .home-card {
+        min-width: 280px;
+        padding: 22px
+    }
+
+    #board .cell {
+        width: 72px;
+        height: 72px;
+        font-size: 1.6rem
+    }
+}
